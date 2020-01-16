@@ -1,3 +1,3 @@
 class Environment{
-  
+  String url = '';
 }
