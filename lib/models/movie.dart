@@ -7,7 +7,7 @@ class Movie {
   String titleLong;
   String slug;
   int year;
-  double rating;
+  String rating;
   int runtime;
   List<String> genres;
   String summary;
@@ -63,7 +63,7 @@ class Movie {
     titleLong = json['title_long'];
     slug = json['slug'];
     year = json['year'];
-    rating = json['rating'];
+    rating = json['rating'].toString();
     runtime = json['runtime'];
     genres = json['genres'].cast<String>();
     summary = json['summary'];
