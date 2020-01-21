@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytsm/models/movie.dart';
-import 'package:ytsm/pages/details_page.dart';
+import '../widgets/movie_grid_item.dart';
 import 'package:ytsm/providers/movies_provider.dart';
 
 class MoviesPage extends StatefulWidget {
@@ -59,76 +59,7 @@ class _MoviesPageState extends State<MoviesPage> {
         ),
         shrinkWrap: true,
         itemCount: movies.length,
-        itemBuilder: (context, index) => Container(
-          padding: EdgeInsets.all(1),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(15.0),
-            child: GridTile(
-              header: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Stack(
-                    alignment: Alignment.center,
-                    children: <Widget>[
-                      Icon(
-                        Icons.star,
-                        color: Colors.yellow,
-                        size: 35,
-                      ),
-                      Text(
-                        movies[index].rating,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              footer: Container(
-                height: 30,
-                alignment: Alignment.center,
-                color: Colors.black54,
-                child: Text(
-                  movies[index].title +' '+ movies[index].year.toString(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              child: GestureDetector(
-                onTap: () => {
-                  Navigator.of(context).pushNamed(DetailsPage.routeName,arguments: movies[index].id)
-                },
-                child: Hero(
-                  tag: movies[index].id,
-                  child: Image.network(
-                    movies[index].largeCoverImage,
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          // child: Card(
-          //   shape: RoundedRectangleBorder(
-          //     borderRadius: BorderRadius.circular(15.0),
-          //   ),
-          //   elevation: 2,
-          //   color: Colors.white,
-          //   child: Column(
-          //     children: <Widget>[
-
-          //     ],
-          //   ),
-          // ),
-        ),
+        itemBuilder: (context, index) => MovieGridItem(movies[index]),
       ),
     );
   }

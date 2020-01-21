@@ -16,17 +16,12 @@ class MoviesProvider with ChangeNotifier {
     if (_page > 25) return true;
     final String url = Environment.moviesUrl + '?limit=15&page=${_page++}';
     //   try {
-    print('request started');
     h.Response response = await h.get(url);
-    print('request done');
     Map<String, dynamic> res = json.decode(response.body);
-    print('request decoded');
     List<Movie> movies = _moviesSubject.hasValue ? _moviesSubject.value : [];
-    print('placeholder init');
     for (var movie in res['data']['movies']) {
       movies.add(Movie.fromJson(movie));
     }
-    print(movies.length);
     _moviesSubject.add(movies);
     //  } catch (e) {
     //    _moviesSubject.addError(e.toString());
