@@ -32,4 +32,13 @@ class MoviesProvider with ChangeNotifier {
     //    _moviesSubject.addError(e.toString());
     //  }
   }
+  Movie fetchMovieDetailsById(int id){
+    // final String url = Environment.moviesUrl+'/data/movies/$id';
+    // h.Response response = await h.get(url);
+    // String movieId = json.decode(response.body);
+    // if(movieId != id){
+    //   return true;
+    // }
+  return _moviesSubject.value.firstWhere((mov)=>mov.id==id);
+  }
 }

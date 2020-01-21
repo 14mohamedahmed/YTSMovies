@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ytsm/pages/details_page.dart';
 import 'package:ytsm/pages/home_page.dart';
 import 'package:ytsm/providers/movies_provider.dart';
 
@@ -22,6 +23,7 @@ class App extends StatelessWidget {
         initialRoute: HomePage.routeName,
         routes: {
           HomePage.routeName: (context) => HomePage(),
+          DetailsPage.routeName: (context) => DetailsPage(),
         },
       ),
     );
