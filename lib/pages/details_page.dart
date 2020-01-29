@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ytsm/providers/movies_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:ytsm/widgets/video_player.dart';
 
 class DetailsPage extends StatefulWidget {
   static const String routeName = '/deatails-page';
@@ -10,7 +11,6 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   MoviesProvider moviesProvider;
-
   @override
   Widget build(BuildContext context) {
     final moviesId = ModalRoute.of(context).settings.arguments;
@@ -18,78 +18,132 @@ class _DetailsPageState extends State<DetailsPage> {
     final filterdMovie = moviesProvider.fetchMovieDetailsById(moviesId);
     print(moviesId);
     return Scaffold(
+      backgroundColor: Colors.black54,
       body: SafeArea(
           top: true,
-          child: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Container(
-                    height: 250,
-                    width: 150,
-                    child: Image.network(filterdMovie.largeCoverImage),
-                  ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  Container(
-                    width: 200,
-                    height: 250,
-                    padding: EdgeInsets.only(top: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          child: Text(
-                            filterdMovie.titleLong,
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        GridView(
-                          shrinkWrap: true,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisSpacing: 2,
-                                  mainAxisSpacing: 2,
-                                  crossAxisCount: 3,
-                                  childAspectRatio: 3),
-                          children: <Widget>[
-                            for (var gen in filterdMovie.genres)
-                              Text(
-                                gen,
-                                style: TextStyle(fontSize: 15),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Container(
+                      height: 250,
+                      width: 150,
+                      child: Image.network(filterdMovie.largeCoverImage),
+                    ),
+                    SizedBox(
+                      width: 10.0,
+                    ),
+                    Container(
+                      width: 200,
+                      height: 250,
+                      padding: EdgeInsets.only(top: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            child: Text(
+                              filterdMovie.titleLong,
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
                               ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Stack(
-                    alignment: Alignment.center,
-                    children: <Widget>[
-                      Icon(
-                        Icons.star,
-                        color: Colors.yellow,
-                        size: 35,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          GridView(
+                            shrinkWrap: true,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisSpacing: 2,
+                                    mainAxisSpacing: 2,
+                                    crossAxisCount: 3,
+                                    childAspectRatio: 3),
+                            children: <Widget>[
+                              for (var gen in filterdMovie.genres)
+                                Text(
+                                  gen,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Stack(
+                                alignment: Alignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.yellow,
+                                    size: 35,
+                                  ),
+                                  Text(
+                                    filterdMovie.rating,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                filterdMovie.language,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                      Text(
-                        filterdMovie.rating,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  )
-                      ],
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15.0, top: 8.0),
+                  child: Text(
+                    'Description',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
                     ),
                   ),
-                ],
-              ),
-            ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15.0, top: 8.0),
+                  child: Text(
+                    filterdMovie.descriptionFull,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15.0, top: 8.0),
+                  child: Text(
+                    'Trailler',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+                // VideoPlayerWidget(),
+              ],
+            ),
           )
 
           // CustomScrollView(slivers: <Widget>[
