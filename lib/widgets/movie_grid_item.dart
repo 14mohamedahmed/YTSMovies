@@ -17,10 +17,6 @@ class _MovieGridItemState extends State<MovieGridItem> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(1),
-      // will not work here just remove it
-      /*  decoration: BoxDecoration(
-           borderRadius: BorderRadius.circular(15.0),
-        ),*/
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15.0),
         child: GridTile(
