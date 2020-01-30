@@ -53,7 +53,7 @@ class _MovieGridItemState extends State<MovieGridItem> {
             child: Hero(
               tag: widget.movie..id,
               child: Image.network(
-                widget.movie.largeCoverImage,
+                widget.movie.mediumCoverImage,
                 fit: BoxFit.fill,
                 loadingBuilder: (BuildContext context, Widget child,
                     ImageChunkEvent loadingProgress) {
