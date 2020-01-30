@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ytsm/providers/movies_provider.dart';
 import 'package:provider/provider.dart';
-<<<<<<< HEAD
-import 'package:ytsm/widgets/rating_star.dart';
-=======
 import 'package:ytsm/widgets/rate_star.dart';
->>>>>>> 63d75579f4ccd58b37c2ced6ef93373e3f34b9b4
 
 class DetailsPage extends StatefulWidget {
   static const String routeName = '/deatails-page';
   @override
   _DetailsPageState createState() => _DetailsPageState();
 }
-
-//  🎶🎶لما تقول يا عوم عوم لحد البراميل
 
 class _DetailsPageState extends State<DetailsPage> {
   MoviesProvider moviesProvider;
@@ -26,53 +20,6 @@ class _DetailsPageState extends State<DetailsPage> {
     return Scaffold(
       backgroundColor: Colors.black54,
       body: SafeArea(
-<<<<<<< HEAD
-        top: true,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Container(
-                    height: 250,
-                    width: 150,
-                    child: Image.network(filterdMovie.largeCoverImage),
-                  ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  Container(
-                    width: 200,
-                    height: 250,
-                    padding: EdgeInsets.only(top: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          child: Text(
-                            filterdMovie.titleLong,
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        GridView(
-                          shrinkWrap: true,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisSpacing: 2,
-                                  mainAxisSpacing: 2,
-                                  crossAxisCount: 3,
-                                  childAspectRatio: 3),
-                          children: <Widget>[
-                            for (var gen in filterdMovie.genres)
-=======
           top: true,
           child: SingleChildScrollView(
             child: Column(
@@ -145,30 +92,14 @@ class _DetailsPageState extends State<DetailsPage> {
                                 ),
                             ],
                           ),*/
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              RateStar(filterdMovie.rating, size: 45),
->>>>>>> 63d75579f4ccd58b37c2ced6ef93373e3f34b9b4
-                              Text(
-                                gen,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                ),
-                              ),
-                          ],
-                        ),
+                         
                         SizedBox(
                           height: 10.0,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
-                            RatingStar(filterdMovie.rating),
+                            RateStar(filterdMovie.rating),
                             Text(
                               filterdMovie.language,
                               style: TextStyle(
@@ -193,7 +124,6 @@ class _DetailsPageState extends State<DetailsPage> {
                     fontSize: 15,
                   ),
                 ),
-<<<<<<< HEAD
               ),
               Title('Trailler'),
               // TODO VideoPlayerWidget(),
@@ -205,13 +135,6 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 }
-=======
-                // VideoPlayerWidget(),
-                
-              ],
-            ),
-          )
->>>>>>> 63d75579f4ccd58b37c2ced6ef93373e3f34b9b4
 
 class Title extends StatelessWidget {
   final String titleText;
