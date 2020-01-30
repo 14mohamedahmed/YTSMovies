@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/movie.dart';
 import '../pages/details_page.dart';
+import 'package:ytsm/widgets/rating_star.dart';
 
 class MovieGridItem extends StatefulWidget {
   final Movie movie;
@@ -26,23 +27,7 @@ class _MovieGridItemState extends State<MovieGridItem> {
           header: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-                  Icon(
-                    Icons.star,
-                    color: Colors.yellow,
-                    size: 35,
-                  ),
-                  Text(
-                    widget.movie.rating,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              )
+              RatingStar(widget.movie.rating),
             ],
           ),
           footer: Container(
