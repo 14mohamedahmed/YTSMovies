@@ -31,12 +31,14 @@ class _MovieGridItemState extends State<MovieGridItem> {
             ],
           ),
           footer: Container(
-            height: 30,
+            height: 45,
             alignment: Alignment.center,
             color: Colors.black54,
             child: Text(
               widget.movie.title + ' ' + widget.movie.year.toString(),
               textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,

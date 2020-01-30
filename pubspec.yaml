@@ -29,6 +29,8 @@ dependencies:
   rxdart: ^0.23.1
   video_player: ^0.10.6
   
+  youtube_player_flutter: ^6.0.3+2
+  
 
 dev_dependencies:
   flutter_test:
