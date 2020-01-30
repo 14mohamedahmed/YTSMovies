@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:ytsm/providers/movies_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:ytsm/widgets/video_player.dart';
+import 'package:ytsm/widgets/rate_star.dart';
 
 class DetailsPage extends StatefulWidget {
   static const String routeName = '/deatails-page';
   @override
   _DetailsPageState createState() => _DetailsPageState();
 }
+
+//  🎶🎶لما تقول يا عوم عوم لحد البراميل
 
 class _DetailsPageState extends State<DetailsPage> {
   MoviesProvider moviesProvider;
@@ -30,6 +32,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     Container(
                       height: 250,
                       width: 150,
+                      margin: EdgeInsets.only(left: 8),
                       child: Image.network(filterdMovie.largeCoverImage),
                     ),
                     SizedBox(
@@ -47,7 +50,7 @@ class _DetailsPageState extends State<DetailsPage> {
                             child: Text(
                               filterdMovie.titleLong,
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 22,
                                 color: Colors.white,
                               ),
                             ),
@@ -55,7 +58,24 @@ class _DetailsPageState extends State<DetailsPage> {
                           SizedBox(
                             height: 10.0,
                           ),
-                          GridView(
+                          Wrap(
+                            children: filterdMovie.genres
+                                .map(
+                                  (String gener) => Chip(
+                                    backgroundColor: Colors.green,
+                                    label: Text(
+                                      gener,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                            spacing: 8,
+                          ),
+
+                          /*  GridView(
                             shrinkWrap: true,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
@@ -73,34 +93,18 @@ class _DetailsPageState extends State<DetailsPage> {
                                   ),
                                 ),
                             ],
-                          ),
+                          ),*/
                           SizedBox(
                             height: 10.0,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.yellow,
-                                    size: 35,
-                                  ),
-                                  Text(
-                                    filterdMovie.rating,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              RateStar(filterdMovie.rating, size: 45),
                               Text(
                                 filterdMovie.language,
                                 style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 18,
                                   color: Colors.white,
                                 ),
                               ),
@@ -142,6 +146,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 ),
                 // VideoPlayerWidget(),
+                
               ],
             ),
           )
