@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ytsm/models/movie.dart';
 import 'package:ytsm/providers/search_movie_provider.dart';
+import 'package:ytsm/widgets/movie_grid_item.dart';
 
 class SearchPage extends StatefulWidget {
   final Key key;
@@ -25,7 +27,7 @@ class _SearchPageState extends State<SearchPage> {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
-                width: 260,
+                width: MediaQuery.of(context).size.width * 0.7,
                 height: 60,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
@@ -33,7 +35,7 @@ class _SearchPageState extends State<SearchPage> {
                     controller: queryTermContriller,
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                      hintText: 'Search for a Moviee...',
+                      hintText: 'Search for a Movie, Actor ...',
                       hintStyle: TextStyle(color: Colors.white),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.green, width: 1),
@@ -43,8 +45,8 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(
-                    right: 8.0, top: 8.0, bottom: 8.0, left: 0.5),
+                padding:
+                    EdgeInsets.only(right: 8.0, top: 8.0, bottom: 8.0, left: 5),
                 height: 60,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
@@ -65,7 +67,43 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ),
             ],
-          )
+          ),
+
+          // TODO add something to indecate loading
+            StreamBuilder<List<Movie>>(
+              stream: searchMovieProvider.moviesStream,
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
+                if (snapshot.hasError)
+                  return Center(child: Text('Failed to find what you wnat 😢'));
+               
+                if (snapshot.hasData) {
+                  return snapshot.data.length <1
+                      ? Center(
+                          child: Text('don\'t know that one'),
+                        )
+                      : Container(
+                        padding: EdgeInsets.all(8),
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height*0.79,
+                        child: GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 0.6,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 15,
+                            ),
+                            shrinkWrap: true,
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (context, index) =>
+                                MovieGridItem(snapshot.data[index]),
+                          ),
+                      );
+                }
+                return Container();
+              },
+            ),
         ],
       ),
     );
