@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ytsm/pages/details_page.dart';
 import 'package:ytsm/pages/home_page.dart';
 import 'package:ytsm/providers/movies_provider.dart';
+import 'package:ytsm/providers/search_movie_provider.dart';
 
 void main() => runApp(App());
 
@@ -14,11 +15,14 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => MoviesProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => SearchMovieProvider(),
+        ),
       ],
       child: MaterialApp(
         title: 'YTS Mo3tayat',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.green,
         ),
         initialRoute: HomePage.routeName,
         routes: {

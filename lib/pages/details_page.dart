@@ -3,7 +3,6 @@ import 'package:ytsm/providers/movies_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:ytsm/widgets/download_movie.dart';
 import 'package:ytsm/widgets/rate_star.dart';
-import 'package:ytsm/widgets/trailer_builder.dart';
 
 class DetailsPage extends StatefulWidget {
   static const String routeName = '/deatails-page';
