@@ -15,7 +15,6 @@ class MoviesProvider with ChangeNotifier {
   Future<dynamic> fetchMovies() async {
     if (_page > 25) return true;
     final String url = Environment.moviesUrl + '?limit=15&page=${_page++}';
-    //   try {
     h.Response response = await h.get(url);
     Map<String, dynamic> res = json.decode(response.body);
     List<Movie> movies = _moviesSubject.hasValue ? _moviesSubject.value : [];
@@ -23,17 +22,9 @@ class MoviesProvider with ChangeNotifier {
       movies.add(Movie.fromJson(movie));
     }
     _moviesSubject.add(movies);
-    //  } catch (e) {
-    //    _moviesSubject.addError(e.toString());
-    //  }
   }
+  
   Movie fetchMovieDetailsById(int id){
-    // final String url = Environment.moviesUrl+'/data/movies/$id';
-    // h.Response response = await h.get(url);
-    // String movieId = json.decode(response.body);
-    // if(movieId != id){
-    //   return true;
-    // }
   return _moviesSubject.value.firstWhere((mov)=>mov.id==id);
   }
 }

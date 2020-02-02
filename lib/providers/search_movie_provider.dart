@@ -23,4 +23,7 @@ class SearchMovieProvider extends ChangeNotifier {
     _searchSubject.add(_movies);
     print(_movies.length);
   }
+  Movie fetchMovieDetailsById(int id){
+  return _searchSubject.value.firstWhere((mov)=>mov.id==id);
+  }
 }

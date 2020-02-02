@@ -68,42 +68,48 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ],
           ),
-
           // TODO add something to indecate loading
-            StreamBuilder<List<Movie>>(
-              stream: searchMovieProvider.moviesStream,
-              builder:
-                  (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
-                if (snapshot.hasError)
-                  return Center(child: Text('Failed to find what you wnat 😢'));
-               
-                if (snapshot.hasData) {
-                  return snapshot.data.length <1
-                      ? Center(
-                          child: Text('don\'t know that one'),
-                        )
-                      : Container(
+          StreamBuilder<List<Movie>>(
+            stream: searchMovieProvider.moviesStream,
+            builder:
+                (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
+              if (snapshot.hasError)
+                return Center(
+                  child: Text(
+                    'Failed to find what you wnat 😢',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                );
+              if (snapshot.hasData) {
+                return snapshot.data.length < 1
+                    ? Center(
+                        child: Text(
+                          'don\'t know that one',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      )
+                    : Container(
                         padding: EdgeInsets.all(8),
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height*0.79,
+                        height: MediaQuery.of(context).size.height * 0.79,
                         child: GridView.builder(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 0.6,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 15,
-                            ),
-                            shrinkWrap: true,
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (context, index) =>
-                                MovieGridItem(snapshot.data[index]),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.6,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 15,
                           ),
+                          shrinkWrap: true,
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, index) =>
+                              MovieGridItem(snapshot.data[index]),
+                        ),
                       );
-                }
-                return Container();
-              },
-            ),
+              }
+              return Container();
+            },
+          ),
         ],
       ),
     );
