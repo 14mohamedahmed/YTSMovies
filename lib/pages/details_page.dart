@@ -14,6 +14,7 @@ class _DetailsPageState extends State<DetailsPage> {
   MoviesProvider moviesProvider;
   SearchMovieProvider searchMovieProvider;
   @override
+  //momocad
   Widget build(BuildContext context) {
     final moviesId = ModalRoute.of(context).settings.arguments;
     moviesProvider = Provider.of<MoviesProvider>(context);
