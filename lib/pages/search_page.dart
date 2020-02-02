@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ytsm/enums/movie_source.dart';
 import 'package:ytsm/models/movie.dart';
 import 'package:ytsm/providers/search_movie_provider.dart';
 import 'package:ytsm/widgets/movie_grid_item.dart';
@@ -103,7 +104,7 @@ class _SearchPageState extends State<SearchPage> {
                           shrinkWrap: true,
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, index) =>
-                              MovieGridItem(snapshot.data[index]),
+                              MovieGridItem(snapshot.data[index], MovieSource.SearchPage),
                         ),
                       );
               }

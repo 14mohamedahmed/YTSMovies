@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ytsm/enums/movie_source.dart';
 import 'package:ytsm/providers/movies_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:ytsm/providers/search_movie_provider.dart';
@@ -11,17 +12,21 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  MoviesProvider moviesProvider;
-  SearchMovieProvider searchMovieProvider;
+  var provider;
   @override
   //momocad
   Widget build(BuildContext context) {
-    final moviesId = ModalRoute.of(context).settings.arguments;
-    moviesProvider = Provider.of<MoviesProvider>(context);
-    searchMovieProvider = Provider.of<SearchMovieProvider>(context);
-    final filterdMovie = moviesProvider.fetchMovieDetailsById(moviesId);
-    final filterdSearchedMovie =
-        searchMovieProvider.fetchMovieDetailsById(moviesId);
+    final moviesId = (ModalRoute.of(context).settings.arguments
+        as Map<String, dynamic>)['id'];
+    final MovieSource source = (ModalRoute.of(context).settings.arguments
+        as Map<String, dynamic>)['source'];
+
+    provider = source == MovieSource.MoviesPage
+        ? Provider.of<MoviesProvider>(context)
+        : Provider.of<SearchMovieProvider>(context);
+
+    final filterdMovie = provider.fetchMovieDetailsById(moviesId);
+   
     print(moviesId);
     print(filterdMovie.id);
     return Scaffold(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ytsm/enums/movie_source.dart';
 import 'package:ytsm/models/movie.dart';
 import '../widgets/movie_grid_item.dart';
 import 'package:ytsm/providers/movies_provider.dart';
@@ -59,7 +60,7 @@ class _MoviesPageState extends State<MoviesPage> {
         ),
         shrinkWrap: true,
         itemCount: movies.length,
-        itemBuilder: (context, index) => MovieGridItem(movies[index]),
+        itemBuilder: (context, index) => MovieGridItem(movies[index], MovieSource.MoviesPage),
       ),
     );
   }
