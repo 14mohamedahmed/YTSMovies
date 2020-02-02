@@ -26,7 +26,6 @@ class _DetailsPageState extends State<DetailsPage> {
     return Scaffold(
       backgroundColor: Colors.black54,
       body: ItemDetails(filterdMovie),
-      // TODO here
     );
   }
 }
