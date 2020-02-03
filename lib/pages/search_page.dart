@@ -71,15 +71,13 @@ class _SearchPageState extends State<SearchPage> {
             ],
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.2,
+            height: MediaQuery.of(context).size.height * 0.18,
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.all(8.0),
             child: GridView(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 3,
                 crossAxisSpacing: 2,
-                mainAxisSpacing: 15,
               ),
               children: <Widget>[
                 buildSearchType(
@@ -98,9 +96,9 @@ class _SearchPageState extends State<SearchPage> {
                     SearchMovieProvider.genre,
                     searchMovieProvider.setFilterGener),
                 buildSearchType(
-                    'Order By',
+                    'Sort By',
                     searchMovieProvider.filterOrderBy,
-                    SearchMovieProvider.oderBy,
+                    SearchMovieProvider.sortBy,
                     searchMovieProvider.setFilterOrderBy),
               ],
             ),
