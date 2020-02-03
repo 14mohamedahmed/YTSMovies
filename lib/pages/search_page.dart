@@ -1,9 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ytsm/Search%20Helper/genre.dart';
+import 'package:ytsm/Search%20Helper/order_by.dart';
+import 'package:ytsm/Search%20Helper/quality.dart';
+import 'package:ytsm/Search%20Helper/rating.dart';
 import 'package:ytsm/enums/movie_source.dart';
 import 'package:ytsm/models/movie.dart';
 import 'package:ytsm/providers/search_movie_provider.dart';
+import 'package:ytsm/widgets/drop_down_widget.dart';
 import 'package:ytsm/widgets/movie_grid_item.dart';
 
 class SearchPage extends StatefulWidget {
@@ -15,6 +20,10 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  String selectedQuality = Quality().quality[0];
+  String selectedGenre = Genre().genre[0];
+  String selectedRate = Rating().rate[0];
+  String selectdOrder = OrderBy().oderBy[0];
   SearchMovieProvider searchMovieProvider;
   final queryTermContriller = TextEditingController();
   @override
@@ -52,64 +61,116 @@ class _SearchPageState extends State<SearchPage> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
                   child: FlatButton(
-                    color: Colors.green,
-                    child: Text(
-                      'Search',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                      child: Text(
+                        'Search',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    onPressed: () {
-                      searchMovieProvider.searchMovie(queryTermContriller.text);
-                    },
-                  ),
+                      onPressed: () {
+                        searchMovieProvider
+                            .searchMovie(queryTermContriller.text);
+                      }),
                 ),
               ),
             ],
           ),
-          // TODO add something to indecate loading
-          StreamBuilder<List<Movie>>(
-            stream: searchMovieProvider.moviesStream,
-            builder:
-                (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
-              if (snapshot.hasError)
-                return Center(
-                  child: Text(
-                    'Failed to find what you wnat 😢',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                );
-              if (snapshot.hasData) {
-                return snapshot.data.length < 1
-                    ? Center(
-                        child: Text(
-                          'don\'t know that one',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      )
-                    : Container(
-                        padding: EdgeInsets.all(8),
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.79,
-                        child: GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 0.6,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 15,
-                          ),
-                          shrinkWrap: true,
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (context, index) =>
-                              MovieGridItem(snapshot.data[index], MovieSource.SearchPage),
-                        ),
-                      );
-              }
-              return Container();
-            },
+          Container(
+            height: MediaQuery.of(context).size.height * 0.2,
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.all(8.0),
+            child: GridView(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 3,
+                crossAxisSpacing: 2,
+                mainAxisSpacing: 15,
+              ),
+              children: <Widget>[
+                buildSearchType('Quality', selectedQuality, Quality().quality),
+                buildSearchType('Rating', selectedRate, Rating().rate),
+                buildSearchType('Genre', selectedGenre, Genre().genre),
+                buildSearchType('Order By', selectdOrder, OrderBy().oderBy),
+              ],
+            ),
+          ),
+          buildStreamBuilder(),
+        ],
+      ),
+    );
+  }
+
+  Widget buildStreamBuilder() {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.61,
+      width: MediaQuery.of(context).size.width,
+      child: StreamBuilder<List<Movie>>(
+        stream: searchMovieProvider.moviesStream,
+        builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
+          if (snapshot.hasError)
+            return Center(
+              child: Text(
+                'Failed to find what you want 😢',
+                style: TextStyle(color: Colors.white),
+              ),
+            );
+          if (snapshot.hasData) {
+            return snapshot.data.length < 1
+                ? Center(
+                    child: Text(
+                      'don\'t know that one',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  )
+                : buildSearchMovieBody(snapshot);
+          }
+          return Center(
+            child: Text(
+              'Search for Specific Movie',
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget buildSearchMovieBody(AsyncSnapshot<List<Movie>> snapshot) {
+    return Container(
+      padding: EdgeInsets.all(8),
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.79,
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 0.6,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 15,
+        ),
+        shrinkWrap: true,
+        itemCount: snapshot.data.length,
+        itemBuilder: (context, index) =>
+            MovieGridItem(snapshot.data[index], MovieSource.SearchPage),
+      ),
+    );
+  }
+
+  Widget buildSearchType(String text, String value, List<String> typeList) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0, right: 15.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            text,
+            style: TextStyle(color: Colors.white),
+          ),
+          DropDownWidget(
+            value: value,
+            typeList: typeList,
           ),
         ],
       ),

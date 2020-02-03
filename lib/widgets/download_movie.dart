@@ -17,7 +17,6 @@ class DownloadMovie extends StatelessWidget {
       throw 'Could not launch $url';
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return FlatButton.icon(
