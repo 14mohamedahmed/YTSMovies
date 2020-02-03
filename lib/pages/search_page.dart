@@ -1,10 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ytsm/Search%20Helper/genre.dart';
-import 'package:ytsm/Search%20Helper/order_by.dart';
-import 'package:ytsm/Search%20Helper/quality.dart';
-import 'package:ytsm/Search%20Helper/rating.dart';
 import 'package:ytsm/enums/movie_source.dart';
 import 'package:ytsm/models/movie.dart';
 import 'package:ytsm/providers/search_movie_provider.dart';
@@ -20,10 +16,6 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  String selectedQuality = Quality().quality[0];
-  String selectedGenre = Genre().genre[0];
-  String selectedRate = Rating().rate[0];
-  String selectdOrder = OrderBy().oderBy[0];
   SearchMovieProvider searchMovieProvider;
   final queryTermContriller = TextEditingController();
   @override
@@ -90,10 +82,26 @@ class _SearchPageState extends State<SearchPage> {
                 mainAxisSpacing: 15,
               ),
               children: <Widget>[
-                buildSearchType('Quality', selectedQuality, Quality().quality),
-                buildSearchType('Rating', selectedRate, Rating().rate),
-                buildSearchType('Genre', selectedGenre, Genre().genre),
-                buildSearchType('Order By', selectdOrder, OrderBy().oderBy),
+                buildSearchType(
+                    'Quality',
+                    searchMovieProvider.filterQuality,
+                    SearchMovieProvider.quality,
+                    searchMovieProvider.setFilterQuality),
+                buildSearchType(
+                    'Rating',
+                    searchMovieProvider.filterRating,
+                    SearchMovieProvider.rate,
+                    searchMovieProvider.setFilterRating),
+                buildSearchType(
+                    'Genre',
+                    searchMovieProvider.filterGener,
+                    SearchMovieProvider.genre,
+                    searchMovieProvider.setFilterGener),
+                buildSearchType(
+                    'Order By',
+                    searchMovieProvider.filterOrderBy,
+                    SearchMovieProvider.oderBy,
+                    searchMovieProvider.setFilterOrderBy),
               ],
             ),
           ),
@@ -118,7 +126,7 @@ class _SearchPageState extends State<SearchPage> {
               ),
             );
           if (snapshot.hasData) {
-            return snapshot.data.length < 1
+            return snapshot.data.length == 0
                 ? Center(
                     child: Text(
                       'don\'t know that one',
@@ -158,7 +166,8 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  Widget buildSearchType(String text, String value, List<String> typeList) {
+  Widget buildSearchType(String text, String value, List<String> typeList,
+      Function(String) onSelect) {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 15.0),
       child: Row(
@@ -171,6 +180,7 @@ class _SearchPageState extends State<SearchPage> {
           DropDownWidget(
             value: value,
             typeList: typeList,
+            onSelect: onSelect,
           ),
         ],
       ),

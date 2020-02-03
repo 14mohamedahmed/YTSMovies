@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class DropDownWidget extends StatefulWidget {
   String value;
   List<String> typeList;
-  DropDownWidget({this.value,this.typeList});
+  Function(String) onSelect;
+  DropDownWidget({this.value,this.typeList, this.onSelect});
   @override
   _DropDownWidgetState createState() => _DropDownWidgetState();
 }
@@ -29,6 +30,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
       onChanged: (newValue) {
         setState(() {
           widget.value = newValue;
+          widget.onSelect(newValue);
         });
       },
       items: widget.typeList.map<DropdownMenuItem<String>>(
