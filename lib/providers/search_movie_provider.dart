@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:ytsm/environment.dart';
@@ -19,17 +18,15 @@ class SearchMovieProvider extends ChangeNotifier {
   String get filterGener => _filterGener;
   String get filterOrderBy => _filterOrderBy;
 
-  setFilterQuality(String value)=>_filterQuality = value;
-  setFilterRating(String value)=>_filterRating = value;
-  setFilterGener(String value)=>_filterGener = value;
-  setFilterOrderBy(String value)=>_filterOrderBy = value;
+  setFilterQuality(String value) => _filterQuality = value;
+  setFilterRating(String value) => _filterRating = value;
+  setFilterGener(String value) => _filterGener = value;
+  setFilterOrderBy(String value) => _filterOrderBy = value;
 
   Future<void> searchMovie(String queryTerm) async {
     final String url = Environment.moviesUrl +
-        '?query_term=$queryTerm&quality=$_filterQuality&genre=$_filterGener';
-        print('search url with filters: $url');
+    '?query_term=$queryTerm&quality=$_filterQuality&genre=$_filterGener&sort_by=Year';
     h.Response response = await h.get(url);
-    print(response.body);
     Map<String, dynamic> res = json.decode(response.body);
     if (res['data']['movie_count'] < 1) {
       _searchSubject.addError('We cannot find this movie');
@@ -78,15 +75,14 @@ class SearchMovieProvider extends ChangeNotifier {
     'Western'
   ];
   static const List<String> oderBy = const [
-    'Latest',
-    'Oldest',
+    'title',
+    'download no.',
     'Seeds',
     'Peers',
     'Year',
     'Rating',
-    'Likes',
-    'Alphabetical',
-    'Downloads'
+    'Like no.',
+    'date no.'
   ];
   static const List<String> quality = const ['All', '720p', '1080p', '3D'];
   static const List<String> rate = const [

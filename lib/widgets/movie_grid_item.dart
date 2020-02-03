@@ -73,18 +73,6 @@ class _MovieGridItemState extends State<MovieGridItem> {
           ),
         ),
       ),
-      // child: Card(
-      //   shape: RoundedRectangleBorder(
-      //     borderRadius: BorderRadius.circular(15.0),
-      //   ),
-      //   elevation: 2,
-      //   color: Colors.white,
-      //   child: Column(
-      //     children: <Widget>[
-
-      //     ],
-      //   ),
-      // ),
     );
   }
 }
