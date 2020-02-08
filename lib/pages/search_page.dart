@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,20 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   SearchMovieProvider searchMovieProvider;
   final queryTermContriller = TextEditingController();
+  bool _isLoading = false;
+  bool _hideText = false;
+  void loadingIdecator() {
+    if (_isLoading == false) {
+      setState(() {
+        _isLoading = true;
+      });
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     searchMovieProvider = Provider.of<SearchMovieProvider>(context);
@@ -63,6 +78,7 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                       ),
                       onPressed: () {
+                        loadingIdecator();
                         searchMovieProvider
                             .searchMovie(queryTermContriller.text);
                       }),
@@ -173,7 +189,7 @@ class _SearchPageState extends State<SearchPage> {
         children: <Widget>[
           Text(
             text,
-            style: TextStyle(color: Colors.white),
+            style: Theme.of(context).textTheme.display4,
           ),
           DropDownWidget(
             value: value,

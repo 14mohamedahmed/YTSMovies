@@ -29,6 +29,7 @@ dependencies:
   rxdart: ^0.23.1
   youtube_player_flutter: ^6.0.3+2
   flutter_downloader: ^1.4.1
+  autocomplete_textfield: ^1.7.3
 
 dev_dependencies:
   flutter_test:

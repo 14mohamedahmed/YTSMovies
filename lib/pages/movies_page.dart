@@ -50,17 +50,20 @@ class _MoviesPageState extends State<MoviesPage> {
   Widget buildMoviesBody(List<Movie> movies) {
     return SafeArea(
       top: true,
-      child: GridView.builder(
-        controller: _scrollController,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 0.6,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 15,
+      child: SingleChildScrollView(
+        child: GridView.builder(
+          controller: _scrollController,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 0.6,
+            crossAxisSpacing: 15,
+            mainAxisSpacing: 15,
+          ),
+          shrinkWrap: true,
+          itemCount: movies.length,
+          itemBuilder: (context, index) =>
+              MovieGridItem(movies[index], MovieSource.MoviesPage),
         ),
-        shrinkWrap: true,
-        itemCount: movies.length,
-        itemBuilder: (context, index) => MovieGridItem(movies[index], MovieSource.MoviesPage),
       ),
     );
   }

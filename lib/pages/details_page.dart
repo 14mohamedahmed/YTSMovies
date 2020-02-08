@@ -3,6 +3,7 @@ import 'package:ytsm/enums/movie_source.dart';
 import 'package:ytsm/providers/movies_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:ytsm/providers/search_movie_provider.dart';
+import 'package:ytsm/providers/theme_provider.dart';
 import 'package:ytsm/widgets/item_details.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -30,8 +31,8 @@ class _DetailsPageState extends State<DetailsPage> {
     print(moviesId);
     print(filterdMovie.id);
     return Scaffold(
-      backgroundColor: Colors.black54,
-      body: ItemDetails(filterdMovie),
+      backgroundColor: Provider.of<ThemeProvider>(context).getThemebackground,
+      body: Container(child: ItemDetails(filterdMovie)),
     );
   }
 }

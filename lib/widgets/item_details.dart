@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:ytsm/models/movie.dart';
 import 'package:ytsm/widgets/rate_star.dart';
-import 'package:ytsm/widgets/download_movie.dart';
 
 class ItemDetails extends StatefulWidget {
   final Movie filter;
@@ -42,10 +42,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                         Container(
                           child: Text(
                             widget.filter.titleLong,
-                            style: TextStyle(
-                              fontSize: 22,
-                              color: Colors.white,
-                            ),
+                            style: Theme.of(context).textTheme.display1,
                           ),
                         ),
                         SizedBox(
@@ -76,10 +73,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                             RateStar(widget.filter.rating, size: 45),
                             Text(
                               widget.filter.language,
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
+                              style: Theme.of(context).textTheme.display3,
                             ),
                           ],
                         ),
@@ -94,35 +88,41 @@ class _ItemDetailsState extends State<ItemDetails> {
               padding: const EdgeInsets.only(left: 15.0, top: 8.0),
               child: Text(
                 widget.filter.descriptionFull,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                ),
+                style: Theme.of(context).textTheme.display2,
               ),
             ),
             Title('Trailler'),
             Container(
               height: 250,
-              // VideoPlayerWidget(),
+              // TODO VideoPlayerWidget(),
             ),
             Title('Download Torrent File'),
             // Download Links
-            Container(
-              height: 100,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 15.0, top: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: widget.filter.torrents
-                      .map(
-                        (torrent) => DownloadMovie(
-                          quality: torrent.quality,
-                          type: torrent.type,
-                          url: torrent.url,
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, top: 8.0),
+              child: Wrap(
+                children: widget.filter.torrents
+                    .map(
+                      (torrent) => ActionChip(
+                        backgroundColor: Colors.green,
+                        label: Text(
+                          torrent.quality + '.' + torrent.type,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      )
-                      .toList(),
-                ),
+                        onPressed: () async {
+                          if (await canLaunch(torrent.url)) {
+                            await launch(torrent.url);
+                          } else {
+                            throw 'Could not launch $torrent.url';
+                          }
+                        },
+                      ),
+                    )
+                    .toList(),
+                    spacing: 8,
               ),
             ),
             SizedBox(
@@ -144,12 +144,8 @@ class Title extends StatelessWidget {
       padding: const EdgeInsets.only(left: 15.0, top: 8.0),
       child: Text(
         title,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 18,
-        ),
+        style: Theme.of(context).textTheme.display3,
       ),
     );
   }
 }
-
