@@ -20,7 +20,6 @@ class _SearchPageState extends State<SearchPage> {
   SearchMovieProvider searchMovieProvider;
   final queryTermContriller = TextEditingController();
   bool _isLoading = false;
-  bool _hideText = false;
   void loadingIdecator() {
     if (_isLoading == false) {
       setState(() {
@@ -189,7 +188,7 @@ class _SearchPageState extends State<SearchPage> {
         children: <Widget>[
           Text(
             text,
-            style: Theme.of(context).textTheme.display4,
+            style: Theme.of(context).textTheme.headline4,
           ),
           DropDownWidget(
             value: value,

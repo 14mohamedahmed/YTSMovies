@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
               ),
               title: Text(
                 'Movies',
-                style: Theme.of(context).textTheme.display2,
+                style: Theme.of(context).textTheme.headline2,
               )),
           BottomNavigationBarItem(
             backgroundColor: barItemColor,
@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
             ),
             title: Text(
               'Upcoming',
-              style: Theme.of(context).textTheme.display2,
+              style: Theme.of(context).textTheme.headline2,
             ),
           ),
           BottomNavigationBarItem(
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
             ),
             title: Text(
               'Search',
-              style: Theme.of(context).textTheme.display2,
+              style: Theme.of(context).textTheme.headline2
             ),
           ),
           BottomNavigationBarItem(
@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
             ),
             title: Text(
               'Setting',
-              style: Theme.of(context).textTheme.display2,
+              style: Theme.of(context).textTheme.headline2,
             ),
           ),
         ],

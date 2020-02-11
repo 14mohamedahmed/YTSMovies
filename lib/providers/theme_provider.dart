@@ -26,11 +26,11 @@ ThemeData darkTheme(BuildContext context) {
   return ThemeData(
     primarySwatch: Colors.green,
     textTheme: Theme.of(context).textTheme.copyWith(
-          display1: TextStyle(color: Colors.white, fontSize: 22),
-          display2: TextStyle(color: Colors.white, fontSize: 15),
-          display3: TextStyle(color: Colors.white, fontSize: 18),
-          display4: TextStyle(
-              color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+          headline1: TextStyle(
+              color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+          headline2: TextStyle(color: Colors.white, fontSize: 15),
+          headline3: TextStyle(color: Colors.white, fontSize: 18),
+          headline4: TextStyle(color: Colors.white, fontSize: 14),
         ),
   );
 }
@@ -39,11 +39,11 @@ ThemeData lightTheme(BuildContext context) {
   return ThemeData(
     primarySwatch: Colors.green,
     textTheme: Theme.of(context).textTheme.copyWith(
-          display1: TextStyle(color: Colors.black, fontSize: 22),
-          display2: TextStyle(color: Colors.black, fontSize: 15),
-          display3: TextStyle(color: Colors.black, fontSize: 18),
-          display4: TextStyle(
-              color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+          headline1: TextStyle(
+              color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+          headline2: TextStyle(color: Colors.black, fontSize: 15),
+          headline3: TextStyle(color: Colors.black, fontSize: 18),
+          headline4: TextStyle(color: Colors.black, fontSize: 14),
         ),
   );
 }

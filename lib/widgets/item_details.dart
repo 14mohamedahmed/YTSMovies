@@ -42,7 +42,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                         Container(
                           child: Text(
                             widget.filter.titleLong,
-                            style: Theme.of(context).textTheme.display1,
+                            style: Theme.of(context).textTheme.headline1,
                           ),
                         ),
                         SizedBox(
@@ -73,7 +73,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                             RateStar(widget.filter.rating, size: 45),
                             Text(
                               widget.filter.language,
-                              style: Theme.of(context).textTheme.display3,
+                              style: Theme.of(context).textTheme.headline3
                             ),
                           ],
                         ),
@@ -88,7 +88,7 @@ class _ItemDetailsState extends State<ItemDetails> {
               padding: const EdgeInsets.only(left: 15.0, top: 8.0),
               child: Text(
                 widget.filter.descriptionFull,
-                style: Theme.of(context).textTheme.display2,
+                style: Theme.of(context).textTheme.headline2,
               ),
             ),
             Title('Trailler'),
@@ -144,7 +144,7 @@ class Title extends StatelessWidget {
       padding: const EdgeInsets.only(left: 15.0, top: 8.0),
       child: Text(
         title,
-        style: Theme.of(context).textTheme.display3,
+        style: Theme.of(context).textTheme.headline3,
       ),
     );
   }

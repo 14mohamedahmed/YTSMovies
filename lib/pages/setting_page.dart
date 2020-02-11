@@ -26,7 +26,7 @@ class _SettingPageState extends State<SettingPage> {
                 children: <Widget>[
                   Text(
                     'Light Mode',
-                    style: Theme.of(context).textTheme.display1
+                    style: Theme.of(context).textTheme.headline1
                   ),
                   Switch(
                     value: themeProvider.isDark,
