@@ -4,13 +4,15 @@ import 'package:flutter/widgets.dart';
 class ThemeProvider extends ChangeNotifier {
   bool isDark;
   ThemeProvider(this.isDark);
-  get getThemebackground => !isDark ? Colors.black : Colors.white;
+  get getThemebackground => isDark ? Colors.black : Colors.white;
 
-  get getBarItemColor => !isDark ? Colors.black : Colors.white;
-  get getBarIconColor => isDark ? Colors.black : Colors.white;
+  get getBarItemColor => isDark ? Colors.black : Colors.white;
+  get getBarIconColor => !isDark ? Colors.black : Colors.white;
+  get getEditTextColor => !isDark ? Colors.black : Colors.white;
+  get getCardItemColor => isDark ? Colors.black : Colors.white;
 
   getTheme(BuildContext context) =>
-      !isDark ? darkTheme(context) : lightTheme(context);
+      isDark ? darkTheme(context) : lightTheme(context);
 
   set setThemeData(bool val) {
     if (val) {
@@ -29,8 +31,9 @@ ThemeData darkTheme(BuildContext context) {
           headline1: TextStyle(
               color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
           headline2: TextStyle(color: Colors.white, fontSize: 15),
-          headline3: TextStyle(color: Colors.white, fontSize: 18),
+          headline3: TextStyle(color: Colors.white, fontSize: 20),
           headline4: TextStyle(color: Colors.white, fontSize: 14),
+          headline5: TextStyle(color: Colors.white, fontSize: 22),
         ),
   );
 }
@@ -42,8 +45,9 @@ ThemeData lightTheme(BuildContext context) {
           headline1: TextStyle(
               color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
           headline2: TextStyle(color: Colors.black, fontSize: 15),
-          headline3: TextStyle(color: Colors.black, fontSize: 18),
+          headline3: TextStyle(color: Colors.black, fontSize: 20),
           headline4: TextStyle(color: Colors.black, fontSize: 14),
+          headline5: TextStyle(color: Colors.black, fontSize: 22),
         ),
   );
 }

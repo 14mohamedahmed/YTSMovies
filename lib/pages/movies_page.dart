@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ytsm/enums/movie_source.dart';
 import 'package:ytsm/models/movie.dart';
-import '../widgets/movie_grid_item.dart';
+import 'package:ytsm/widgets/movie_card_horizontal.dart';
+import 'package:ytsm/widgets/movie_card_vertical.dart';
 import 'package:ytsm/providers/movies_provider.dart';
 
 class MoviesPage extends StatefulWidget {
@@ -51,18 +51,40 @@ class _MoviesPageState extends State<MoviesPage> {
     return SafeArea(
       top: true,
       child: SingleChildScrollView(
-        child: GridView.builder(
-          controller: _scrollController,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 0.6,
-            crossAxisSpacing: 15,
-            mainAxisSpacing: 15,
-          ),
-          shrinkWrap: true,
-          itemCount: movies.length,
-          itemBuilder: (context, index) =>
-              MovieGridItem(movies[index], MovieSource.MoviesPage),
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.only(top: 15.0, bottom: 8, left: 15.0),
+              width: MediaQuery.of(context).size.width,
+              child: Text(
+                'Suggessions',
+                style: Theme.of(context).textTheme.headline5,
+              ),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.345,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: movies.length,
+                itemBuilder: (context, index) =>
+                    MovieCardHorizontal(movies[index]),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(top: 15.0, bottom: 8, left: 15.0),
+              width: MediaQuery.of(context).size.width,
+              child: Text(
+                'Movies',
+                style: Theme.of(context).textTheme.headline5,
+              ),
+            ),
+            ListView.builder(
+              primary: false,
+              shrinkWrap: true,
+              itemCount: movies.length,
+              itemBuilder: (context, index) => MovieCardVetical(movies[index]),
+            ),
+          ],
         ),
       ),
     );

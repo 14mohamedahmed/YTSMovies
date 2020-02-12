@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ytsm/enums/movie_source.dart';
 import 'package:ytsm/widgets/rate_star.dart';
 import '../models/movie.dart';
 import '../pages/details_page.dart';
 
 class MovieGridItem extends StatefulWidget {
   final Movie movie;
-  final MovieSource source;
 
-  MovieGridItem(this.movie, this.source);
+  MovieGridItem(this.movie);
 
   @override
   _MovieGridItemState createState() => _MovieGridItemState();
@@ -48,7 +46,6 @@ class _MovieGridItemState extends State<MovieGridItem> {
               Navigator.of(context).pushNamed(DetailsPage.routeName,
                   arguments: <String, dynamic>{
                     'id': widget.movie.id,
-                    'source': widget.source
                   })
             },
             child: Hero(

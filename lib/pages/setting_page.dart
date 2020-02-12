@@ -25,7 +25,7 @@ class _SettingPageState extends State<SettingPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Light Mode',
+                    'Dark Mode',
                     style: Theme.of(context).textTheme.headline1
                   ),
                   Switch(

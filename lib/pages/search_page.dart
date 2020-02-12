@@ -1,10 +1,9 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ytsm/enums/movie_source.dart';
 import 'package:ytsm/models/movie.dart';
 import 'package:ytsm/providers/search_movie_provider.dart';
+import 'package:ytsm/providers/theme_provider.dart';
 import 'package:ytsm/widgets/drop_down_widget.dart';
 import 'package:ytsm/widgets/movie_grid_item.dart';
 
@@ -49,10 +48,14 @@ class _SearchPageState extends State<SearchPage> {
                   borderRadius: BorderRadius.circular(10.0),
                   child: TextField(
                     controller: queryTermContriller,
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                        color: Provider.of<ThemeProvider>(context)
+                            .getEditTextColor),
                     decoration: InputDecoration(
                       hintText: 'Search for a Movie, Actor ...',
-                      hintStyle: TextStyle(color: Colors.white),
+                      hintStyle: TextStyle(
+                          color: Provider.of<ThemeProvider>(context)
+                              .getEditTextColor),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.green, width: 1),
                       ),
@@ -126,7 +129,7 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget buildStreamBuilder() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.61,
+      height: MediaQuery.of(context).size.height * 0.631,
       width: MediaQuery.of(context).size.width,
       child: StreamBuilder<List<Movie>>(
         stream: searchMovieProvider.moviesStream,
@@ -174,7 +177,7 @@ class _SearchPageState extends State<SearchPage> {
         shrinkWrap: true,
         itemCount: snapshot.data.length,
         itemBuilder: (context, index) =>
-            MovieGridItem(snapshot.data[index], MovieSource.SearchPage),
+            MovieGridItem(snapshot.data[index]),
       ),
     );
   }
