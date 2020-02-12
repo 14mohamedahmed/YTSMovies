@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ytsm/models/movie.dart';
+import 'package:ytsm/providers/theme_provider.dart';
 import 'package:ytsm/widgets/rate_star.dart';
 
 class MovieCardHorizontal extends StatefulWidget {
@@ -16,6 +18,7 @@ class _MovieCardHorizontalState extends State<MovieCardHorizontal> {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       width: MediaQuery.of(context).size.width * 0.51,
       child: Card(
+        color: Provider.of<ThemeProvider>(context).getCardItemColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusDirectional.circular(15.0),
         ),
